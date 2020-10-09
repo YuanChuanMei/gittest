@@ -1,0 +1,90 @@
+html { height: 100%; }
+.text-center{
+	color: white;
+	font-size: 24px;
+	padding-bottom: 10px;
+}
+.loginForm{ 
+	position: absolute; 
+	left: 50%; 
+	top: 55%; 
+	width: 430px; 
+	height: 550px; 
+	margin: -300px 0 0 -215px; 
+	border: 1px solid #fff; 
+	border-radius: 20px; 
+	overflow: hidden;
+	background-color: transparent;
+	}
+	
+.logo { 
+	width: 104px; 
+	height: 104px; 
+	margin: 50px auto 40px; 
+	background: url(../img/login.png) 0 0 no-repeat; 
+	}
+.form-group {  
+	/* position: relative; */
+	width: 360px; 
+	margin: 0 auto; 
+	padding-bottom: 30px;
+	}
+.form-group input { 
+	width: 360px;
+	height: 50px;  
+	padding-left: 70px; 
+	border: 1px solid #fff; 
+	border-radius: 25px; 
+	font-size: 20px; 
+	color: #fff; 
+	background-color: transparent; 
+	outline: none;
+	}
+/* .login-form-btn { 
+	width: 360px; 
+	height: 50px; 
+	border: 1px solid #fff; 
+	margin-left: 30px;
+	border-radius: 25px; 
+	font-size: 20px; 
+	color:black; 
+	background-color: white; */
+	/* outline: none;
+	cursor: pointer; */ 
+ 	/*}
+ .login-form-btn:hover { 
+	background-color: #CCCCCC; 
+	color: white; 
+	border: 1px #FFFFFF;
+	
+	} */
+	#formBtn{
+		width: 360px;
+		height: 50px; 
+		margin-left: 30px;
+		color: #000000;
+		border: 1px solid #fff; 
+		font-size: 20px; 
+		border-radius: 25px; 
+		background-color: white;
+		outline: none;
+		cursor: pointer; 
+	}
+	#formBtn:hover{
+		background-color: #CCCCCC; 
+		border: 1px #FFFFFF;
+		color: #FFFFFF;
+	}
+#username { background: url(../img/emil.png) 20px 14px no-repeat; }
+#password { background: url(../img/password.png) 23px 11px no-repeat; }
+
+.checkbox{
+	font-size: 14px; 
+	color: white;
+	margin-left: 40px;
+}
+.reg-bar { width: 360px; margin: 20px auto 0; font-size: 14px; overflow: hidden;}
+.reg-bar a { color: #fff; text-decoration: none; }
+.reg-bar a:hover { text-decoration: underline; }
+.reg-bar .reg { float: left; }
+.reg-bar .forget { float: right; }

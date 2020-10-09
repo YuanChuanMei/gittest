@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>登录页面</title>
+		<link rel="stylesheet" href="../css/common.css" />
+		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		
+		<link rel="stylesheet" href="../css/login.css">
+		<style>
+			body { 
+				height: 100%; 
+				background: #fff url(../img/backgroud.jpg) 50% 50% no-repeat; 
+				background-size: cover;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				}
+
+			canvas {}
+		</style>
+		
+	</head>
+	<body>
+		<!-- H5中新增的一个标签 表示画布 注意 不能够使用css控制canvas的宽和高 应当使用html标准属性来控制宽高-->
+		<canvas id="myCanvas"></canvas>
+		<img />
+		<div id="loginForm" class="loginForm">
+			<div class="logo"></div>
+			<h5 class="text-center">登录页面</h5>
+			<form>
+			  <div class="form-group">
+			    
+			    <input type="text" class="form-control" id="username" placeholder="账号">
+			  </div>
+			  <div class="form-group">
+			    
+			    <input type="password" class="form-control" id="password" placeholder="密码">
+			  </div>
+			  
+			  <div class="checkbox">
+			    <label>
+			      <input type="checkbox"> 一周内免登录
+			    </label>
+			  </div>
+			  <button type="button" id="formBtn" class="login-form-btn btn btn-default btn-info">登录</button>
+			  <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+			  <h5 class="reg-bar">
+				  <a class="reg" >忘记密码？</a>
+				  <a class="forget" href="regist.html">去注册</a>
+			  </h5>
+			</form>
+		</div>
+		<script>
+			// 获取元素
+			var myCanvas = document.getElementById("myCanvas");
+			var clientWidth = document.documentElement.clientWidth;
+			var clientHeight = document.documentElement.clientHeight;
+			myCanvas.width = clientWidth;
+			myCanvas.height = clientHeight;
+			// 获取画笔
+			var ctx = myCanvas.getContext("2d");
+			ctx.fillStyle = "white";
+			ctx.strokeStyle = "white";
+			ctx.lineWidth = 0.1
+			
+			class Star {
+				constructor(x, y, xspeed, yspeed) {
+					this.x = x;
+					this.y = y;
+					this.xspeed = xspeed;
+					this.yspeed = yspeed;
+				}
+				run() {
+					this.x += this.xspeed;
+					this.y += this.yspeed;
+				}
+				changeX() {
+					this.xspeed = -this.xspeed;
+				}
+				changeY() {
+					this.yspeed = -this.yspeed;
+				}
+			}
+
+			function random(start, end) {
+				var result = parseInt(Math.random() * (end - start) + start);
+				if (result === 0) {
+					return random(start, end);
+				}
+				return result;
+			}
+			var starArr = [];
+			for (var i = 0; i < 400; i++) {
+				var star = new Star(parseInt(Math.random() * clientWidth), parseInt(Math.random() * clientHeight), random(-3, 3),
+					random(-3, 3))
+				starArr.push(star);
+				ctx.beginPath();
+				ctx.arc(star.x, star.y, 1, 0, Math.PI * 2);
+				ctx.closePath();
+				ctx.fill();
+			}
+			setInterval(function() {
+				ctx.clearRect(0, 0, clientWidth, clientHeight)
+				for (var i = 0; i < starArr.length; i++) {
+					ctx.beginPath();
+					ctx.arc(starArr[i].x, starArr[i].y, 1, 0, Math.PI * 2);
+					ctx.closePath();
+					ctx.fill();
+					starArr[i].run();
+					if (starArr[i].x < 0 || starArr[i].x > clientWidth) {
+						starArr[i].changeX();
+					}
+					if (starArr[i].y < 0 || starArr[i].y > clientHeight) {
+						starArr[i].changeY();
+					}
+					// 绘制连线
+					for (var j = i; j < starArr.length; j++) {
+						if (Math.abs(starArr[i].x - starArr[j].x) < 50 && Math.abs(starArr[i].y - starArr[j].y) < 50 ) {
+							ctx.beginPath();
+							ctx.moveTo(starArr[i].x, starArr[i].y);
+							ctx.lineTo(starArr[j].x, starArr[j].y)
+							ctx.closePath();
+							ctx.stroke();
+						}
+					}
+				}
+			}, 40)
+
+
+			// 添加点击事件
+			myCanvas.onclick = function(e) {
+				for (var i = 0; i < 5; i++) {
+					var star = new Star(e.clientX, e.clientY, random(-3, 3), random(-3, 3));
+					console.log(star)
+					starArr.push(star)
+				}
+			}
+		</script>
+		<script src="../js/jquery.min-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script>
+			var $formBtn=$("#formBtn");
+			$formBtn.click(function(){
+				//获取表单中的数据
+				var $username=$("#username");
+				var $password=$("#password");
+				$.ajax({
+					url:"../php/login.php",
+					data:{
+						username:$username.val(),
+						password:$password.val()
+					},
+					type:"post",
+					dataType:"json",
+					success(responseDate){
+						console.log("chenggongle");
+						
+						//错误处理
+						if(responseDate.error===0){
+							localStorage.setItem("flag",$username.val());
+							//location.href="http://baidu.com";
+							alert("登陆成功");
+							location.href="../manage/userinfo.html"
+						}else{
+							alert("登录失败");
+						}
+					}
+					})
+			})
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,35 @@
+/* CSS reset 指的是清除浏览器的默认样式 */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+
+ul {
+	list-style: none;
+}
+img {
+	display: block;
+}
+
+.container {
+	width: 1127px;
+	margin: 0 auto;
+}
+
+/* CSS3中给每一个元素都添加了伪元素 ::before ::after */
+.clearFix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+/* 常用的样式 通常会写成预定义类  */
+.pull-left {
+	float: left;
+}
+
+.pull-right {
+	float: right;
+}
